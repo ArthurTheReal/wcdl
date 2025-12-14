@@ -77,13 +77,15 @@ def download_chapter(
         )
         task = progress.add_task(chapter_name, total=len(urls))
     
-    with progress:
-        with ThreadPoolExecutor(max_workers=threads) as exec:
-            futures = [exec.submit(download, url, base_dir) for url in urls]
-            
-            if show_progress:
+        with progress:
+            with ThreadPoolExecutor(max_workers=threads) as exec:
+                futures = [exec.submit(download, url, base_dir) for url in urls]
+                
                 for _ in as_completed(futures):
                     progress.update(task, refresh=True, advance=1)
+    else:
+        with ThreadPoolExecutor(max_workers=threads) as exec:
+            futures = [exec.submit(download, url, base_dir) for url in urls]
 
     if make_cbz:
         output_file = os.path.join(manga_name, chapter_name + ".cbz")
