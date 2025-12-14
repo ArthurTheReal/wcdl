@@ -42,19 +42,18 @@ poetry install --with dev
   - `rich` - Beautiful terminal output
   - `requests` - HTTP requests with retry logic
   - `beautifulsoup4` - HTML parsing
-  - `pillow` - Image processing (optional, for advanced features)
 
 ## 📖 Usage
 
-### Quick Start
+## Quick Start
 
-# Search for manga
+### Search for manga
 wcdl search "Jujutsu Kaisen"
 
-# Download specific chapters
+### Download specific chapters
 wcdl download "Jujutsu Kaisen" --range 1-5
 
-# Download with CBZ files
+### Download with CBZ files
 wcdl download "Jujutsu Kaisen" --range 1-50 --cbz
 
 ### Commands
@@ -100,78 +99,38 @@ wcdl download "One Piece" --range 1-100 --cbz --connections 16
 
 **Examples:**
 
-# Download first 20 chapters as individual image folders
+### Download first 20 chapters as individual image folders
 wcdl download "Solo Leveling" -r 1-20
 
-# Download chapters and create CBZ files with 4 parallel connections
+### Download chapters and create CBZ files with 4 parallel connections
 wcdl download "Jujutsu Kaisen" -r 1-50 --cbz -c 4
 
-# Download and create CBZ files, keep original images
+### Download and create CBZ files, keep original images
 wcdl download "Bleach" -r 1-366 --cbz --keep-files
 
-# Interactive mode (no range specified - choose during execution)
+### Interactive mode (no range specified - choose during execution)
 wcdl download "Death Note"
 
 ## 📁 Directory Structure
 
 After downloading, manga is organized as follows:
 
-Manga_Title/
-├── Chapter_1/
-│   ├── image_1.jpg
-│   ├── image_2.jpg
-│   └── ...
-├── Chapter_2/
-│   ├── image_1.jpg
-│   ├── image_2.jpg
-│   └── ...
-├── Chapter_1.cbz (if --cbz flag used)
-├── Chapter_2.cbz (if --cbz flag used)
-└── ...
+Manga_Title/ \
+├── Chapter_1/ \
+│   ├── image_1.jpg \
+│   ├── image_2.jpg \
+│   └── ... \
+├── Chapter_2/ \
+│   ├── image_1.jpg \
+│   ├── image_2.jpg \
+│   └── ... \
+├── Chapter_1.cbz (if --cbz flag used) \
+├── Chapter_2.cbz (if --cbz flag used) \
+└── ... 
 
 **With `--cbz --keep-files`**: Both image directories and CBZ files are preserved
 **With `--cbz` (without `--keep-files`)**: Only CBZ files remain, image directories are deleted
-
-## 🛠️ Project Structure
-
-wcdl/
-├── __init__.py           # Package initialization
-├── cli.py               # Command-line interface (Click commands)
-├── fetch.py             # Web scraping and manga information retrieval
-├── download.py          # Multi-threaded chapter downloading
-├── tools.py             # Utility functions and terminal formatting
-├── settings.py          # Configuration URLs and constants
-└── pyproject.toml       # Poetry configuration
-
-### Module Overview
-
-**`fetch.py`** - Web scraping module
-- `search(query)` - Search for manga by title
-- `get_chapters(manga_id)` - Fetch chapter list for a manga
-- `get_chapter_images(chapter_id)` - Get image URLs for a chapter
-
-**`download.py`** - Download management
-- `download(url, out_dir)` - Download single image file
-- `download_chapter(manga_name, chapter_name, urls, ...)` - Download entire chapter with threading
-
-**`tools.py`** - Helper utilities
-- `random_headers(url)` - Generate random HTTP headers for requests
-- `safe_request(url, ...)` - HTTP requests with automatic retry logic
-- Terminal formatting functions: `success()`, `error()`, `warn()`, `notic()`
-
-**`cli.py`** - Command-line interface
-- Interactive search and selection
-- Range parsing and validation
-- Download coordination
-
-## ⚙️ Configuration
-
-Edit `wcdl/settings.py` to change target website URLs:
-
-SITE = "https://weebcentral.com/"
-SEARCH_URL = SITE + "search/data"
-CHAPTER_LIST_URL = "https://weebcentral.com/series/{}/full-chapter-list"
-CHAPTER_IMAGES_URL = "https://weebcentral.com/chapters/{}/images"
+      # Poetry configuration \
 
 ## 🔄 Download Behavior
 
@@ -228,13 +187,6 @@ Contributions are welcome! Areas for improvement:
 ## 📝 License
 
 This project is licensed under the MIT License - see LICENSE file for details.
-
-## 🙏 Acknowledgments
-
-- Built with [Click](https://click.palletsprojects.com/) for CLI framework
-- [Rich](https://rich.readthedocs.io/) for beautiful terminal output
-- [BeautifulSoup4](https://www.crummy.com/software/BeautifulSoup/) for HTML parsing
-- [Requests](https://requests.readthedocs.io/) for HTTP functionality
 
 ## 📞 Support
 
