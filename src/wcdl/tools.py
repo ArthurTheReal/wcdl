@@ -3,6 +3,8 @@ import uuid
 import rich
 import requests
 import time
+from typing import List
+from click import BadParameter
 
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
@@ -64,3 +66,38 @@ def safe_request(url: str, params:dict=None, headers:dict=None, retries:int=5, t
 
     error(f"Failed all retries for URL: {url}")
     return None
+
+def parse_range_args(range_str: str) -> List[int]:
+    """
+    Parse range arguments like "1", "1-5", "1,3,5" into a list of chapter numbers.
+    
+    Args:
+        range_str: Range string (e.g., "1", "1-5", "1,3,5-7")
+    
+    Returns:
+        List of chapter numbers to download
+    """
+    chapters = []
+    
+    # Handle comma-separated values
+    for part in range_str.split(","):
+        part = part.strip()
+        
+        # Check if it's a range (e.g., "1-5")
+        if "-" in part:
+            try:
+                start, end = part.split("-")
+                start, end = int(start.strip()), int(end.strip())
+                chapters.extend(range(start, end + 1))
+            except (ValueError, AttributeError):
+                error(f"Invalid range format: {part}")
+                raise BadParameter(f"Invalid range format: {part}")
+        else:
+            try:
+                chapters.append(int(part))
+            except ValueError:
+                error(f"Invalid chapter number: {part}")
+                raise BadParameter(f"Invalid chapter number: {part}")
+    
+    # Remove duplicates and sort
+    return sorted(list(set(chapters)))

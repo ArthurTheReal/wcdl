@@ -10,7 +10,8 @@ requires-python = ">=3.13"
 dependencies = [
     "requests (>=2.32.5,<3.0.0)",
     "beautifulsoup4 (>=4.14.3,<5.0.0)",
-    "rich (>=14.2.0,<15.0.0)"
+    "rich (>=14.2.0,<15.0.0)",
+    "click (>=8.3.1,<9.0.0)"
 ]
 
 [tool.poetry]
