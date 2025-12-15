@@ -278,6 +278,10 @@ def download_cmd(query: str, cbz: bool, keep_files: bool, connections: int, rang
                     tools.error(f"No images found for {chapter_title}")
                     continue
                 
+                # if both cbz and keep_files options are not specified, then do the default action which is to not make cbz
+                if not cbz and not keep_files:
+                    keep_files = True
+                
                 download.download_chapter(
                     manga_name=manga_title,
                     chapter_name=chapter_title,
